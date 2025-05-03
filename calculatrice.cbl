@@ -6,6 +6,8 @@
 
        ENVIRONMENT DIVISION.
 
+      * Les variables déclarées concernent : le calcul et la boucle 
+      * associée initialisée à Oui.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        01 WS-OPERATEUR PIC X(2).
@@ -13,10 +15,13 @@
        01 WS-NOMBRE2 PIC 9(3).
        01 WS-RESULTAT PIC -Z(6).
        01 WS-CONTINUER PIC X VALUE "O".
-      * 01 WS-DIVZERO PIC X VALUE "N".
+      
 
        PROCEDURE DIVISION.
            DISPLAY "CALCULATRICE COBOL".
+
+      * Boucle : Exécute les instructions suivantes jusqu'a ce que 
+      * la variable WS-CONTINUER soit egale à N."
 
            PERFORM UNTIL WS-CONTINUER = "N"
            
@@ -31,7 +36,9 @@
       
                DISPLAY "CALCUL EN COURS"
                DISPLAY WS-NOMBRE1  WS-OPERATEUR WS-NOMBRE2 WS-RESULTAT
-     
+      
+      * En fonction du choix de l'opérateur, on appelle le paragraphe 
+      * associé.
 
                EVALUATE WS-OPERATEUR
                    WHEN "+"
@@ -62,7 +69,7 @@
            DISPLAY "FIN DU PROGRAMME".
            STOP RUN.
       * ....................PARAGRAPHES.............................
-
+      * Les paragraphes appelés par le PERFORM dans le EVALUATE.
            START-ADDIT-PARA.
            COMPUTE WS-RESULTAT = WS-NOMBRE1 + WS-NOMBRE2.
            DISPLAY "=" FUNCTION TRIM(WS-RESULTAT).
